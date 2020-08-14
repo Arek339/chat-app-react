@@ -12,19 +12,33 @@ const {
 const PORT = process.env.PORT || 5000
 
 const router = require('./router');
+const {
+    use
+} = require('./router');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
 io.on('connection', (socket) => {
-    console.log('We have a new connection!!!');
-
     socket.on('join', ({
         name,
         room
     }, callback) => {
-        console.log(name, room);
+        const {
+            error,
+            user
+        } = addUser({
+            id: socket.id,
+            name,
+            room
+        });
+        if (error) return callback(error);
+        socket.emit('message', {
+            user: 'admin',
+            text: `${user.name}, welcome to the room ${user.room}`
+        })
+        socket.join(user.room);
     });
 
     socket.on('disconnect', () => {
