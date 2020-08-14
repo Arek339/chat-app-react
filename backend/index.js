@@ -43,7 +43,18 @@ io.on('connection', (socket) => {
             text: `${user.name}, has joined!`
         });
         socket.join(user.room);
+
+        callback();
     });
+
+    socket.on('sendMessage', (message, callback) => {
+        const user = getUser(socket.id);
+        io.to(user.room).emit('message', {
+            user: user.name,
+            text: message
+        });
+        callback();
+    })
 
     socket.on('disconnect', () => {
         console.log('User had left!!');
