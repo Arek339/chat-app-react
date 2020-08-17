@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
+import './Chat.css';
+import InfoBar from '../InfoBar/InfoBar';
+import Input from '../Input/Input';
+import Messages from '../Messages/Messages';
+
 let socket; 
+
 
 const Chat = ({ location }) => {
     const [name, setName] = useState('');
@@ -36,9 +42,21 @@ const Chat = ({ location }) => {
         })
     }, [messages]);
 
+    const sendMessage = (e) => {
+        e.preventDefault();
+        if(message){
+            socket.emit('sendMessage', message, () => setMessages(''));
+        }
+    }
 
     return(
-        <h1>Chat</h1>
+    <div className="outerContainer">
+        <div className="container">
+            <InfoBar room={room} />
+            <Messages/>
+            <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
+        </div>
+    </div>
     )
 }
 
