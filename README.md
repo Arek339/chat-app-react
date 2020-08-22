@@ -34,7 +34,7 @@ The app warns by means of a message when a new user connects as well as when dis
 ## Responsive Design :pushpin:
 Responsive version for the app, from any computer it can be seen in optimal conditions.
 <p align="center">
-  <img width="600" height="400" src="imgReadme/demo-mobile.gif">
+  <img width="800" height="400" src="imgReadme/demo-mobile.gif">
 </p>
 
 ## Built with 🛠️
