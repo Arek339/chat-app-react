@@ -31,6 +31,12 @@ The app warns by means of a message when a new user connects as well as when dis
   <img width="600" height="400" src="imgReadme/on-off-users.png">
 </p>
 
+## Responsive Design :pushpin:
+Responsive version for the app, from any computer it can be seen in optimal conditions.
+<p align="center">
+  <img width="600" height="400" src="imgReadme/demo-mobile.gif">
+</p>
+
 ## Built with 🛠️
 * [React](https://es.reactjs.org/docs/getting-started.html) - Javascript library to create user interfaces.
 * [Socket.io](https://socket.io/) - JS library for real-time web communication.
