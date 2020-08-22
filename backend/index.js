@@ -1,9 +1,14 @@
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-const cors = require('cors');
+// const cors = require('cors');
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+const {
+    addUser,
+    removeUser,
+    getUser,
+    getUsersInRoom
+} = require('./users.js');
 
 const router = require('./router');
 
@@ -11,12 +16,27 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
 app.use(router);
 
 io.on('connect', (socket) => {
-    socket.on('join', ({ name, room }, callback) => {
-        const { error, user } = addUser({ id: socket.id, name, room });
+    socket.on('join', ({
+        name,
+        room
+    }, callback) => {
+        const {
+            error,
+            user
+        } = addUser({
+            id: socket.id,
+            name,
+            room
+        });
 
         if (error) return callback(error);
 
